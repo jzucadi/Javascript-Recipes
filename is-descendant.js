@@ -1,41 +1,27 @@
+// ES6+ version
 
-var Window = Window || {},
-  utils = utils || {};
-
-(function() {
-  var isDescendant = function(parent, child) {
-    var node;
-
-    if(!validType(parent)) {
-      throw new TypeError(err('Parent', parent));
+const utils = {
+  /**
+   * Checks if 'child' is a descendant of 'parent' using the built-in Node.contains method.
+   * @param {HTMLElement|Window} parent 
+   * @param {HTMLElement} child 
+   * @returns {boolean}
+   */
+  isDescendant(parent, child) {
+    if (!(parent instanceof HTMLElement || parent instanceof Window)) {
+      throw new TypeError(`Parent must be an HTMLElement or Window. It is currently a(n) ${typeof parent}`);
+    }
+    if (!(child instanceof HTMLElement)) {
+      throw new TypeError(`Child must be an HTMLElement. It is currently a(n) ${typeof child}`);
     }
 
-    if(!validType(child)) {
-      throw new TypeError(err('Child', child));
-    }
-
-    node = child.parentNode;
-
-    while (node !== null) {
-      if (node === parent) {
-        return true;
-      }
-
-      node = node.parentNode;
-    }
+    // For Window, perform the check only if both are window objects
+    if (parent instanceof Window && child instanceof Window) return parent === child;
+    // For elements, use built-in contains
+    if (parent instanceof HTMLElement) return parent.contains(child);
 
     return false;
-  };
-
-  utils.isDescendant = isDescendant;
-
-  /////////////////////////////////////////////////////////////////////
-
-  function validType(element) {
-    return element instanceof HTMLElement || element instanceof Window;
   }
+};
 
-  function err(stringName, element) {
-    return stringName + ' must be an HTMLElement or Window. It is currently a(n) ' + typeof element;
-  }
-}());
+export default utils;
