@@ -2,51 +2,25 @@
 determine if certain keys are being pressed utility
 */
 
-var utils = utils || {};
+const utils = globalThis.utils ?? {};
 
-(function() {
-  // checks if the tab key was pressed
-  function tab(e) {
-    var key = e.keyCode || e.which;
+const keyCodes = {
+  tab: 9,
+  enter: 13,
+  esc: 27,
+  up: 38,
+  down: 40,
+};
 
-    return key === 9 || key === '9';
-  }
+// Generic key checker factory
+const isKey = (expected) => (e) => {
+  const key = e.keyCode ?? e.which;
+  // Accept both number and string representations
+  return key === expected || key === String(expected);
+};
 
-  // checks if the enter key was pressed
-  function enter(e) {
-    var key = e.keyCode || e.which;
+utils.keys = Object.fromEntries(
+  Object.entries(keyCodes).map(([name, code]) => [name, isKey(code)])
+);
 
-    return key === 13 || key === '13';
-  }
-
-  // checks if the escape key was pressed
-  function esc(e) {
-    var key = e.keyCode || e.which;
-
-    return key === 27 || key === '27';
-  }
-
-  // checks if the up key was pressed
-  function up(e) {
-    var key = e.keyCode || e.which;
-
-    return key === 38 || key === '38';
-  }
-
-  // checks if the down key was pressed
-  function down(e) {
-    var key = e.keyCode || e.which;
-
-    return key === 40 || key === '40';
-  }
-
-  var keys = {
-    enter: enter,
-    tab: tab,
-    esc: esc,
-    up: up,
-    down: down
-  };
-
-  utils.keys = keys;
-}());
+export default utils;
