@@ -1,33 +1,26 @@
+// Create a utils object if it doesn't exist
+const utils = globalThis.utils ?? (globalThis.utils = {});
 
-var utils = utils || [];
+/**
+ * Flip-flops two classes.
+ * @param {HTMLElement} el
+ * @param {string} removeClass
+ * @return {Object}
+ *
+ * Usage:
+ * utils.swapClass(document.getElementById('some-element'), 'class1').forClass('class2');
+ */
+function swapClass(el, removeClass) {
+  el.classList.remove(removeClass);
 
-(function() {
-  /**
-   *  Flip-flops two classes
-   *  @param {HTMLElement} $el
-   *  @param {String} _class
-   *  @return {Object}
-   *
-   *	Usage:
-   *	utils.swapClass(document.getElementById('some-element'), 'class1').forClass('class2');
-   */
-  var swapClass = function($el, _class) {
-    $el.classList.remove(_class);
-
-    // chain this method
-    return {
-      forClass: function(__class) {
-        return forClass.call(this, $el, __class);
-      }
-    };
+  // Chain forClass as a method
+  return {
+    forClass(addClass) {
+      el.classList.add(addClass);
+      // Optional: Return element for chaining DOM ops
+      return el;
+    },
   };
+}
 
-  /////////////////////////////////////////////////////////////////////
-
-  function forClass($el, _class) {
-    $el.classList.add(_class);
-  }
-
-  utils.swapClass = swapClass;
-
-}());
+utils.swapClass = swapClass;
