@@ -17,12 +17,12 @@ export const I = <T>(x: T): T => x;
 
 // List manipulation
 /**
- * Returns the first element of an array
+ * Returns the first element of an array, or undefined if the array is empty
  */
-export const head = <T>(xs: T[]): T => xs[0];
+export const head = <T>(xs: T[]): T | undefined => xs[0];
 
 /**
- * Returns all elements except the first
+ * Returns all elements except the first (returns empty array if input is empty)
  */
 export const tail = <T>(xs: T[]): T[] => xs.slice(1);
 
@@ -36,13 +36,13 @@ export const append = <T>(x: T) => (xs: T[]): T[] => [...xs, x];
  * Left fold - reduces an array from left to right
  */
 export const foldl = <A, B>(f: (acc: B) => (x: A) => B) => (y: B) => (xs: A[]): B =>
-  xs.length > 0 ? foldl(f)(f(y)(head(xs)))(tail(xs)) : y;
+  xs.length > 0 ? foldl(f)(f(y)(head(xs) as A))(tail(xs)) : y;
 
 /**
  * Right fold - reduces an array from right to left
  */
 export const foldr = <A, B>(f: (acc: B) => (x: A) => B) => (y: B) => (xs: A[]): B =>
-  xs.length > 0 ? f(foldr(f)(y)(tail(xs)))(head(xs)) : y;
+  xs.length > 0 ? f(foldr(f)(y)(tail(xs)))(head(xs) as A) : y;
 
 /**
  * Maps a function over an array
@@ -58,19 +58,26 @@ export const filter = <T>(f: (x: T) => boolean): (xs: T[]) => T[] =>
 
 // Function composition
 /**
- * Composes two functions (right to left)
+ * Composes two functions (right to left): compose(f)(g)(x) = f(g(x))
  */
 export const compose = <A, B, C>(f: (b: B) => C) => (g: (a: A) => B) => (x: A): C =>
   f(g(x));
 
 /**
- * Type for array transformations used in pipe
+ * Type for functions that transform arrays of the same type
  */
 type ArrayTransform<T> = (xs: T[]) => T[];
 
 /**
- * Pipes an array of functions together (left to right execution)
- * Note: For simplicity, this version works with functions that have matching input/output types
+ * Pipes an array of functions together, executing from left to right.
+ * 
+ * This TypeScript version is constrained to functions with matching input/output types
+ * (ArrayTransform<T>) to maintain type safety. The original JavaScript version
+ * `pipe = foldr(compose)(I)` is more general but lacks static type checking.
+ * 
+ * @example
+ * pipe<number>([map(add(1)), map(mult(2)), filter(gt(10))])([1, 2, 3, 4, 5])
+ * // Returns [12, 14] - numbers that are > 10 after (x+1)*2 transformation
  */
 export const pipe = <T>(fns: ArrayTransform<T>[]): ArrayTransform<T> =>
   foldr<ArrayTransform<T>, ArrayTransform<T>>(
