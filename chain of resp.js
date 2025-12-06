@@ -1,73 +1,46 @@
-class ShoppingCart {
+class ShoppingCart
+  constructor: ->
+    @products = []
 
-  constructor() {
-    this.products = [];
-  }
+  addProduct: (p) ->
+    @products. push p
 
-  addProduct(p) {
-    this.products.push(p);
-  };
-}
+class Discount
+  calc: (products) ->
+    ndiscount = new NumberDiscount()
+    pdiscount = new PriceDiscount()
+    none = new NoneDiscount()
+    ndiscount.setNext pdiscount
+    pdiscount.setNext none
+    ndiscount.exec products
 
-class Discount {
+class NumberDiscount
+  constructor: ->
+    @next = null
 
-  calc(products) {
-    let ndiscount = new NumberDiscount();
-    let pdiscount = new PriceDiscount();
-    let none = new NoneDiscount();
-    ndiscount.setNext(pdiscount);
-    pdiscount.setNext(none);
-    return ndiscount.exec(products);
-  };
-}
+  setNext: (fn) ->
+    @next = fn
 
-class NumberDiscount {
+  exec: (products) ->
+    result = 0
+    result = 0.05 if products.length > 3
+    result + @next.exec products
 
-  constructor() {
-    this.next = null;
-  }
+class PriceDiscount
+  constructor: ->
+    @next = null
 
-  setNext(fn) {
-    this.next = fn;
-  };
+  setNext: (fn) ->
+    @next = fn
 
-  exec(products) {
-    let result = 0;
-    if (products.length > 3)
-      result = 0.05;
+  exec: (products) ->
+    result = 0
+    total = products.reduce (a, b) -> a + b
+    result = 0.1 if total >= 500
+    result + @next.exec products
 
-    return result + this.next.exec(products);
-  };
-}
+class NoneDiscount
+  exec: ->
+    0
 
-class PriceDiscount {
-
-  constructor() {
-    this.next = null;
-  }
-
-  setNext(fn) {
-    this.next = fn;
-  };
-
-  exec(products) {
-    let result = 0;
-    let total = products.reduce((a, b) => a + b);
-
-    if (total >= 500)
-      result = 0.1;
-
-    return result + this.next.exec(products);
-  };
-}
-
-class NoneDiscount {
-  exec() {
-    return 0;
-  };
-}
-
-export {
-  ShoppingCart,
-  Discount
-};
+module.exports = { ShoppingCart, Discount }
