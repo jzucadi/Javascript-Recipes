@@ -2,8 +2,6 @@
 
 A curated collection of TypeScript/JavaScript design patterns, utilities, and recipes for common programming scenarios.  This repository serves as a practical reference for developers looking for battle-tested solutions to everyday coding challenges.
 
-## 📋 Contents
-
 ### Design Patterns
 
 #### **Builder Pattern** (`builder.ts`)
