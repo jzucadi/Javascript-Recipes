@@ -1,4 +1,4 @@
-# TypeScript Recipes 🧪
+![unnamed-1](https://github.com/user-attachments/assets/3fce1a4e-d663-4265-83fe-bf6ebc176705)
 
 A curated collection of TypeScript/JavaScript design patterns, utilities, and recipes for common programming scenarios.  This repository serves as a practical reference for developers looking for battle-tested solutions to everyday coding challenges.
 
