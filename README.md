@@ -108,7 +108,3 @@ Clone the repository and use the patterns in your projects:
 git clone https://github.com/jzucadi/Typescript-Recipes. git
 ```
 
-## 📝 License
-
-This project is open source and available for use in your projects.
-
