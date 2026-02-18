@@ -3,7 +3,7 @@
 ![unnamed](https://github.com/user-attachments/assets/8d59406e-8adf-4e33-b75f-f6d9e526106f)
 </p>
 
-A curated collection of TypeScript/JavaScript design patterns, utilities, and recipes for common programming scenarios.  This repository serves as a practical reference for developers looking for battle-tested solutions to everyday coding challenges.
+A curated collection of TypeScript/JavaScript/CoffeeScript design patterns, utilities, and tooling for common programming scenarios.  This repository serves as a practical reference for developers looking for battle-tested solutions to everyday coding challenges.
 
 ### Design Patterns
 
