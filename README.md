@@ -1,6 +1,6 @@
 
 <p align="center">
-<img width="574" height="486" alt="Screenshot 2025-12-18 at 2 13 21 PM" src="https://github.com/user-attachments/assets/9b4fdde6-6da8-47ff-a145-0eeacf323447" />
+![unnamed](https://github.com/user-attachments/assets/8d59406e-8adf-4e33-b75f-f6d9e526106f)
 </p>
 
 A curated collection of TypeScript/JavaScript design patterns, utilities, and recipes for common programming scenarios.  This repository serves as a practical reference for developers looking for battle-tested solutions to everyday coding challenges.
