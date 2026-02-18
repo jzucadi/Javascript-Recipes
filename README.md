@@ -103,11 +103,3 @@ const { swapClass } = require('./swap-class');
 - **Well Documented**:  Inline comments and JSDoc documentation
 - **Production Ready**: Error handling and edge case coverage
 
-## Installation
-
-Clone the repository and use the patterns in your projects:
-
-```bash
-git clone https://github.com/jzucadi/Typescript-Recipes. git
-```
-
